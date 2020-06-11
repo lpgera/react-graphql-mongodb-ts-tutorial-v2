@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  install:
+    image: node:12
+    volumes:
+      - .:/opt/app
+      - node_modules:/opt/app/node_modules
+    working_dir: /opt/app
+    command: npm i
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+  backend:
+    image: node:12
+    command: npm run start-server
+    volumes:
+      - .:/opt/app:delegated
+      - node_modules:/opt/app/node_modules
+    working_dir: /opt/app
+    ports:
+      - 4001:4001
+    depends_on:
+      - mongodb
+  frontend:
+    image: node:12
+    command: npm run start
+    volumes:
+      - .:/opt/app:delegated
+      - node_modules:/opt/app/node_modules
+    working_dir: /opt/app
+    stdin_open: true
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
+volumes:
+  node_modules:

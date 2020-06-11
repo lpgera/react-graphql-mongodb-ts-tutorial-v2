@@ -47,7 +47,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-server": "cd server && npx ts-node-dev --respawn src/server.ts",
-    "e2e-test": "jest --verbose e2e-tests/SignInForm.test.js "
+    "e2e-test": "jest --verbose e2e-tests/SignInForm.test.js ",
+    "dc:install": "docker-compose run --rm install",
+    "dc:up": "docker-compose up -d frontend",
+    "dc:down": "docker-compose down --remove-orphans",
+    "dc:logs": "docker-compose logs -f"
   },
   "eslintConfig": {
     "extends": "react-app"
